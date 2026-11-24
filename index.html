@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#6b321d">
+<title>Cinnabon Show | سينابون شو</title>
+<style>
+:root{--brown:#6b321d;--gold:#e7b45b;--cream:#fff8ef;--ink:#38251d;--muted:#806f64}
+*{box-sizing:border-box}body{margin:0;font-family:Tahoma,Arial,sans-serif;background:var(--cream);color:var(--ink);line-height:1.7}
+header{background:linear-gradient(135deg,#542714,#8a4a2b);color:white;text-align:center;padding:34px 16px 28px}
+header h1{font-size:clamp(2rem,8vw,3rem);margin:0;color:#ffe1a4}header p{margin:7px 0 0}
+.wrap{width:min(950px,92%);margin:24px auto}.intro{text-align:center;margin-bottom:20px}.intro h2{margin:0;color:var(--brown)}
+.menu{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px}
+.item,.cart,.customer{background:white;border:1px solid #f0dfcf;border-radius:16px;padding:16px;box-shadow:0 5px 18px #5427140c}
+.item h3{margin:0;color:var(--brown);font-size:1.08rem}.price{font-weight:bold;color:#9a5a25;margin:5px 0 10px}
+.item p{font-size:.9rem;color:var(--muted);margin:0 0 10px}
+button{border:0;border-radius:10px;padding:10px 14px;font:inherit;font-weight:bold;cursor:pointer}
+.add{background:var(--brown);color:white;width:100%}
+select,input,textarea{font:inherit;border:1px solid #dfcbbb;border-radius:9px;padding:10px;width:100%;background:#fff}
+label{display:block;font-weight:bold;margin:12px 0 5px}
+.cart,.customer{margin-top:18px}.cart h2,.customer h2{margin:0 0 10px;color:var(--brown)}
+.cart-row{display:flex;justify-content:space-between;gap:10px;align-items:center;border-bottom:1px solid #f0e5dc;padding:10px 0}
+.qty{display:flex;align-items:center;gap:8px}.qty button{padding:3px 10px;background:#f5e6d7;color:var(--brown)}
+.total{font-size:1.25rem;font-weight:bold;text-align:left;margin-top:12px}
+.send{background:#218b52;color:white;width:100%;margin-top:14px;font-size:1.05rem}
+.hint{color:var(--muted);font-size:.85rem}
+footer{text-align:center;color:var(--muted);padding:24px 10px}
+.empty{color:var(--muted);text-align:center;padding:12px}
+</style>
+</head>
+<body>
+<header>
+  <h1>Cinnabon Show</h1>
+  <p>طعم حلو يخلّي يومك أحلى 🤎</p>
+</header>
+<main class="wrap">
+  <section class="intro"><h2>اختار طلبك</h2><p>ضيف المنتجات للسلة، وبعدها ابعت الأوردر على واتساب.</p></section>
+  <section class="menu" id="menu">
+    <article class="item">
+      <h3>سينابون كلاسيك</h3><div class="price">55 جنيه</div>
+      <p>سينابون بالصوص الكلاسيك.</p>
+      <button class="add" onclick="addItem('سينابون كلاسيك',55)">أضف للسلة</button>
+    </article>
+    <article class="item">
+      <h3>سينابون بصوص إضافي</h3><div class="price">65 جنيه</div>
+      <label>اختار الصوص</label>
+      <select id="rollSauce"><option>كراميل</option><option>نوتيلا</option><option>لوتس</option><option>كيندر</option><option>وايت شوكليت</option><option>قهوة</option></select>
+      <button class="add" onclick="addItem('سينابون بصوص '+document.getElementById('rollSauce').value,65)">أضف للسلة</button>
+    </article>
+    <article class="item">
+      <h3>سينابون بلو بيري أو فستق</h3><div class="price">80 جنيه</div>
+      <label>اختار النوع</label>
+      <select id="special"><option>بلو بيري</option><option>فستق</option></select>
+      <button class="add" onclick="addItem('سينابون '+document.getElementById('special').value,80)">أضف للسلة</button>
+    </article>
+    <article class="item">
+      <h3>بوكس فتّة لـ 4 أفراد</h3><div class="price">270 جنيه</div>
+      <p>بوكس مناسب للمشاركة.</p>
+      <button class="add" onclick="addItem('بوكس فتّة لـ 4 أفراد',270)">أضف للسلة</button>
+    </article>
+    <article class="item">
+      <h3>دونات شوكولاتة</h3><div class="price">35 جنيه</div>
+      <button class="add" onclick="addItem('دونات شوكولاتة',35)">أضف للسلة</button>
+    </article>
+    <article class="item">
+      <h3>دونات بصوص</h3><div class="price">40 جنيه</div>
+      <label>اختار الصوص</label>
+      <select id="donutSauce"><option>لوتس</option><option>نوتيلا</option><option>كيندر</option><option>قهوة</option></select>
+      <button class="add" onclick="addItem('دونات '+document.getElementById('donutSauce').value,40)">أضف للسلة</button>
+    </article>
+    <article class="item">
+      <h3>بومبولوني</h3><div class="price">40 جنيه</div>
+      <p>حشو أو توبينج.</p>
+      <button class="add" onclick="addItem('بومبولوني (حشو أو توبينج)',40)">أضف للسلة</button>
+    </article>
+    <article class="item">
+      <h3>بومبولوني حشو + توبينج</h3><div class="price">55 جنيه</div>
+      <p>اختار الحشو والتوبينج مع بعض.</p>
+      <button class="add" onclick="addItem('بومبولوني (حشو وتوبينج)',55)">أضف للسلة</button>
+    </article>
+  </section>
+
+  <section class="cart">
+    <h2>سلة الطلبات</h2>
+    <div id="cartItems" class="empty">لسه مفيش منتجات في السلة.</div>
+    <div class="total" id="total">الإجمالي: 0 جنيه</div>
+  </section>
+
+  <section class="customer">
+    <h2>بيانات الطلب</h2>
+    <label for="customerName">اسم العميل</label>
+    <input id="customerName" placeholder="اكتب اسمك">
+    <label for="customerPhone">رقم تليفونك</label>
+    <input id="customerPhone" type="tel" inputmode="tel" placeholder="رقم للتواصل">
+    <label for="notes">ملاحظات (اختياري)</label>
+    <textarea id="notes" rows="3" placeholder="العنوان أو أي تفاصيل إضافية"></textarea>
+    <button class="send" onclick="sendOrder()">إرسال الأوردر على واتساب</button>
+    <p class="hint">هيفتح واتساب برسالة جاهزة لرقم Cinnabon Show. راجع الطلب واضغط إرسال من واتساب.</p>
+  </section>
+</main>
+<footer>© Cinnabon Show — صاحبة الموقع: شيماء أمين</footer>
+<script>
+const cart=[];
+function addItem(name,price){const found=cart.find(x=>x.name===name);if(found)found.qty++;else cart.push({name,price,qty:1});renderCart()}
+function changeQty(i,delta){cart[i].qty+=delta;if(cart[i].qty<=0)cart.splice(i,1);renderCart()}
+function renderCart(){
+ const box=document.getElementById('cartItems');
+ if(!cart.length){box.className='empty';box.textContent='لسه مفيش منتجات في السلة.'}
+ else{box.className='';box.innerHTML=cart.map((x,i)=>`<div class="cart-row"><div><b>${escapeHtml(x.name)}</b><br><small>${x.price} جنيه × ${x.qty}</small></div><div class="qty"><button onclick="changeQty(${i},-1)">−</button><span>${x.qty}</span><button onclick="changeQty(${i},1)">+</button></div></div>`).join('')}
+ const total=cart.reduce((s,x)=>s+x.price*x.qty,0);
+ document.getElementById('total').textContent='الإجمالي: '+total+' جنيه';
+}
+function escapeHtml(s){return s.replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+function sendOrder(){
+ const name=document.getElementById('customerName').value.trim();
+ const phone=document.getElementById('customerPhone').value.trim();
+ const notes=document.getElementById('notes').value.trim();
+ if(!cart.length){alert('ضيف منتج للسلة الأول.');return}
+ if(!name||!phone){alert('اكتب اسمك ورقم تليفونك.');return}
+ const total=cart.reduce((s,x)=>s+x.price*x.qty,0);
+ let msg='طلب جديد من Cinnabon Show%0A';
+ msg+='اسم العميل: '+encodeURIComponent(name)+'%0A';
+ msg+='رقم التليفون: '+encodeURIComponent(phone)+'%0A%0A';
+ msg+='الطلبات:%0A';
+ cart.forEach(x=>{msg+='- '+encodeURIComponent(x.name)+' × '+x.qty+' = '+(x.price*x.qty)+' جنيه%0A'});
+ msg+='%0Aالإجمالي: '+total+' جنيه';
+ if(notes)msg+='%0Aملاحظات: '+encodeURIComponent(notes);
+ window.open('https://wa.me/201003561379?text='+msg,'_blank');
+}
+</script>
+</body>
+</html>
